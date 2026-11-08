@@ -34,7 +34,7 @@ cell+ ──┬──► INA219 VIN+ ─[0.1 Ω shunt]─ VIN− ──► AO340
                        Q2 drain ──► CN3791 IN+      Q2 gate ──► AO3400 (Q3) drain
                                                     Q3 gate ◄── GPIO27, 100 k to GND
                                                     Q3 source ──► GND
-CN3791 BAT+ ──► 18650+       CN3791 CHRG LED pin ──► GPIO34 (via 10 k, active low, see wiring.md)
+CN3791 BAT+ ──► 18650+       CN3791 CHRG (open-drain, LED removed) ──► GPIO34, 100 k pull-up to 3V3
 ```
 * **Normal:** Q1 off. The cell feeds the charger through the Schottky; the CN3791 MPPT holds
   the cell near its maximum-power voltage.

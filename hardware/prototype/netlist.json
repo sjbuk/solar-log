@@ -1,0 +1,523 @@
+[
+ {
+  "net": "GND",
+  "color": "#2b2f30",
+  "info": "Ground (all grounds common)",
+  "pins": [
+   {
+    "ref": "J1",
+    "pin": "−",
+    "hole": "D1"
+   },
+   {
+    "ref": "U2",
+    "pin": "GND",
+    "hole": "B3"
+   },
+   {
+    "ref": "C3",
+    "pin": "−",
+    "hole": "D3"
+   },
+   {
+    "ref": "C1",
+    "pin": "−",
+    "hole": "E7"
+   },
+   {
+    "ref": "C2",
+    "pin": "−",
+    "hole": "G5"
+   },
+   {
+    "ref": "R2",
+    "pin": "2",
+    "hole": "J2"
+   },
+   {
+    "ref": "C4",
+    "pin": "2",
+    "hole": "J3"
+   },
+   {
+    "ref": "J5",
+    "pin": "GND",
+    "hole": "M7"
+   },
+   {
+    "ref": "INA",
+    "pin": "GND",
+    "hole": "D10"
+   },
+   {
+    "ref": "Q1",
+    "pin": "S",
+    "hole": "D20"
+   },
+   {
+    "ref": "R3",
+    "pin": "2",
+    "hole": "F19"
+   },
+   {
+    "ref": "Q3",
+    "pin": "S",
+    "hole": "I22"
+   },
+   {
+    "ref": "R6",
+    "pin": "1",
+    "hole": "K22"
+   },
+   {
+    "ref": "J2",
+    "pin": "−",
+    "hole": "E35"
+   },
+   {
+    "ref": "J3",
+    "pin": "IN−",
+    "hole": "J35"
+   },
+   {
+    "ref": "J6",
+    "pin": "2",
+    "hole": "Q1"
+   },
+   {
+    "ref": "C5",
+    "pin": "2",
+    "hole": "Q4"
+   },
+   {
+    "ref": "RTC",
+    "pin": "GND",
+    "hole": "Z7"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "GND",
+    "hole": "O14"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "GND",
+    "hole": "Y27"
+   }
+  ]
+ },
+ {
+  "net": "VBAT",
+  "color": "#8a4b2a",
+  "info": "Battery + (protected 18650)",
+  "pins": [
+   {
+    "ref": "J1",
+    "pin": "+",
+    "hole": "B1"
+   },
+   {
+    "ref": "U2",
+    "pin": "VIN",
+    "hole": "B4"
+   },
+   {
+    "ref": "C3",
+    "pin": "+",
+    "hole": "D4"
+   },
+   {
+    "ref": "R1",
+    "pin": "1",
+    "hole": "G2"
+   }
+  ]
+ },
+ {
+  "net": "3V3",
+  "color": "#d23c2c",
+  "info": "3.3 V from U2 to ESP32 3V3 pin",
+  "pins": [
+   {
+    "ref": "U2",
+    "pin": "VOUT",
+    "hole": "B5"
+   },
+   {
+    "ref": "C1",
+    "pin": "+",
+    "hole": "C7"
+   },
+   {
+    "ref": "C2",
+    "pin": "+",
+    "hole": "F5"
+   },
+   {
+    "ref": "R4",
+    "pin": "1",
+    "hole": "G28"
+   },
+   {
+    "ref": "Q4",
+    "pin": "S",
+    "hole": "I29"
+   },
+   {
+    "ref": "R8",
+    "pin": "1",
+    "hole": "L31"
+   },
+   {
+    "ref": "R7",
+    "pin": "1",
+    "hole": "O3"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "3V3",
+    "hole": "O27"
+   }
+  ]
+ },
+ {
+  "net": "S3V3",
+  "color": "#e8892b",
+  "info": "Switched sensor rail (Q4 drain)",
+  "pins": [
+   {
+    "ref": "J5",
+    "pin": "VDD",
+    "hole": "I7"
+   },
+   {
+    "ref": "R9",
+    "pin": "1",
+    "hole": "K5"
+   },
+   {
+    "ref": "INA",
+    "pin": "VCC",
+    "hole": "C10"
+   },
+   {
+    "ref": "Q4",
+    "pin": "D",
+    "hole": "I30"
+   },
+   {
+    "ref": "RTC",
+    "pin": "VCC",
+    "hole": "Y7"
+   }
+  ]
+ },
+ {
+  "net": "CELL+",
+  "color": "#7b4fb8",
+  "info": "Reference cell +",
+  "pins": [
+   {
+    "ref": "INA",
+    "pin": "VIN+",
+    "hole": "H10"
+   },
+   {
+    "ref": "D1",
+    "pin": "A",
+    "hole": "C32"
+   },
+   {
+    "ref": "J2",
+    "pin": "+",
+    "hole": "C35"
+   }
+  ]
+ },
+ {
+  "net": "SHUNT_LO",
+  "color": "#c24f9a",
+  "info": "INA219 VIN− to Q1 drain",
+  "pins": [
+   {
+    "ref": "INA",
+    "pin": "VIN−",
+    "hole": "G10"
+   },
+   {
+    "ref": "Q1",
+    "pin": "D",
+    "hole": "D19"
+   }
+  ]
+ },
+ {
+  "net": "CHG_A",
+  "color": "#1f8f8a",
+  "info": "After D1, to Q2 source",
+  "pins": [
+   {
+    "ref": "D1",
+    "pin": "K",
+    "hole": "C28"
+   },
+   {
+    "ref": "Q2",
+    "pin": "S",
+    "hole": "E25"
+   },
+   {
+    "ref": "R5",
+    "pin": "2",
+    "hole": "G25"
+   }
+  ]
+ },
+ {
+  "net": "Q2_G",
+  "color": "#5aa36a",
+  "info": "Q2 gate (level-shifted by Q3)",
+  "pins": [
+   {
+    "ref": "Q2",
+    "pin": "G",
+    "hole": "E24"
+   },
+   {
+    "ref": "R5",
+    "pin": "1",
+    "hole": "G24"
+   },
+   {
+    "ref": "Q3",
+    "pin": "D",
+    "hole": "I24"
+   }
+  ]
+ },
+ {
+  "net": "CHG_IN",
+  "color": "#127a9e",
+  "info": "Q2 drain to CN3791 IN+",
+  "pins": [
+   {
+    "ref": "Q2",
+    "pin": "D",
+    "hole": "E26"
+   },
+   {
+    "ref": "J3",
+    "pin": "IN+",
+    "hole": "H35"
+   }
+  ]
+ },
+ {
+  "net": "CHG_EN",
+  "color": "#b59a12",
+  "info": "GPIO27, high = charging allowed",
+  "pins": [
+   {
+    "ref": "Q3",
+    "pin": "G",
+    "hole": "I23"
+   },
+   {
+    "ref": "R6",
+    "pin": "2",
+    "hole": "K23"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO27",
+    "hole": "O17"
+   }
+  ]
+ },
+ {
+  "net": "SHORT",
+  "color": "#9c6b00",
+  "info": "GPIO26, high = cell shorted for Isc",
+  "pins": [
+   {
+    "ref": "Q1",
+    "pin": "G",
+    "hole": "D18"
+   },
+   {
+    "ref": "R3",
+    "pin": "1",
+    "hole": "F18"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO26",
+    "hole": "O18"
+   }
+  ]
+ },
+ {
+  "net": "RAIL_EN",
+  "color": "#c15a5a",
+  "info": "GPIO25, low = sensor rail on",
+  "pins": [
+   {
+    "ref": "R4",
+    "pin": "2",
+    "hole": "H28"
+   },
+   {
+    "ref": "Q4",
+    "pin": "G",
+    "hole": "I28"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO25",
+    "hole": "O19"
+   }
+  ]
+ },
+ {
+  "net": "CHG_STAT",
+  "color": "#5e7fd6",
+  "info": "GPIO34 ← CN3791 CHRG (open-drain)",
+  "pins": [
+   {
+    "ref": "R8",
+    "pin": "2",
+    "hole": "L32"
+   },
+   {
+    "ref": "J3",
+    "pin": "CHRG",
+    "hole": "L35"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO34",
+    "hole": "O23"
+   }
+  ]
+ },
+ {
+  "net": "VSENSE",
+  "color": "#7d8c2c",
+  "info": "GPIO35 ← battery divider",
+  "pins": [
+   {
+    "ref": "R1",
+    "pin": "2",
+    "hole": "H2"
+   },
+   {
+    "ref": "R2",
+    "pin": "1",
+    "hole": "I2"
+   },
+   {
+    "ref": "C4",
+    "pin": "1",
+    "hole": "I3"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO35",
+    "hole": "O22"
+   }
+  ]
+ },
+ {
+  "net": "BTN",
+  "color": "#a0522d",
+  "info": "GPIO33 ← service button",
+  "pins": [
+   {
+    "ref": "J6",
+    "pin": "1",
+    "hole": "O1"
+   },
+   {
+    "ref": "R7",
+    "pin": "2",
+    "hole": "P3"
+   },
+   {
+    "ref": "C5",
+    "pin": "1",
+    "hole": "P4"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO33",
+    "hole": "O20"
+   }
+  ]
+ },
+ {
+  "net": "SDA",
+  "color": "#2f6fd0",
+  "info": "I²C data, GPIO21",
+  "pins": [
+   {
+    "ref": "INA",
+    "pin": "SDA",
+    "hole": "F10"
+   },
+   {
+    "ref": "RTC",
+    "pin": "SDA",
+    "hole": "X7"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO21",
+    "hole": "Y22"
+   }
+  ]
+ },
+ {
+  "net": "SCL",
+  "color": "#1aa3c4",
+  "info": "I²C clock, GPIO22",
+  "pins": [
+   {
+    "ref": "INA",
+    "pin": "SCL",
+    "hole": "E10"
+   },
+   {
+    "ref": "RTC",
+    "pin": "SCL",
+    "hole": "W7"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO22",
+    "hole": "Y25"
+   }
+  ]
+ },
+ {
+  "net": "1W",
+  "color": "#3e9b3e",
+  "info": "1-Wire, GPIO4",
+  "pins": [
+   {
+    "ref": "J5",
+    "pin": "DQ",
+    "hole": "K7"
+   },
+   {
+    "ref": "R9",
+    "pin": "2",
+    "hole": "K6"
+   },
+   {
+    "ref": "ESP32",
+    "pin": "IO4",
+    "hole": "Y15"
+   }
+  ]
+ }
+]

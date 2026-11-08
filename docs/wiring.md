@@ -1,5 +1,8 @@
 # Wiring
 
+For a perfboard build see [`hardware/prototype/`](../hardware/prototype/): schematic, placement guide
+and a hole-by-hole net list generated from one script.
+
 All grounds are common: ESP32 GND, battery −, cell −, CN3791 GND, sensor GND.
 
 ## Power path
@@ -26,7 +29,7 @@ All grounds are common: ESP32 GND, battery −, cell −, CN3791 GND, sensor GND
 | 1-Wire | 4 | Both DS18B20 data (yellow), 4.7 kΩ to SENSOR_3V3 |
 | SHORT | 26 | AO3400 (Q1) gate, 100 kΩ to GND |
 | CHG_EN | 27 | AO3400 (Q3) gate, 100 kΩ to GND |
-| CHG_STAT | 34 | CN3791 CHRG LED cathode side through 10 kΩ; add 100 kΩ pull-up to 3V3 (GPIO34 has no internal pull-up) |
+| CHG_STAT | 34 | CN3791 CHRG pin (open-drain) with 100 kΩ pull-up to 3V3 (GPIO34 has no internal pull-up). **Remove the module's CHRG LED** — it is fed from the panel voltage and would push ~4 V into GPIO34 |
 | BUTTON | 33 | Push button to GND, 100 kΩ pull-up to 3V3 |
 
 ## Reference cell & charger

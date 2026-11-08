@@ -7,3 +7,4 @@ server/data/
 firmware/.pio/
 firmware/.vscode/
 .venv/
+hardware/prototype/*.inline.svg
