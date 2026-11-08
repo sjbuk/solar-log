@@ -1,0 +1,10 @@
+services:
+  solarlog:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      # device_id:token pairs; must match the token entered in the device setup portal
+      SOLARLOG_DEVICE_TOKENS: "solarlog-abc123:change-me"
+      SOLARLOG_TZ: "Europe/London"
+    volumes: ["./data:/data"]
+    restart: unless-stopped

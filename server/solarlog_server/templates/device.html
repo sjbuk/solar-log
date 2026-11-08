@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}{{ device.id }} · Solar-Log{% endblock %}
+{% block body %}
+<p><a href="/">← devices</a></p>
+<h1>{{ device.id }}</h1>
+<p class="muted">
+  {% if device.lat is not none %}{{ "%.4f"|format(device.lat) }}, {{ "%.4f"|format(device.lon) }} ·
+  tilt {{ device.tilt }}° · azimuth {{ device.azimuth }}°{% endif %}
+  · calibration {{ "%.2f"|format(device.factor) }} W/m² per mA ({{ device.cal_source or "nominal" }})
+  · <a href="/api/v1/devices/{{ device.id }}/data.csv">CSV</a>
+</p>
+
+<div class="grid" id="stats"></div>
+<p class="muted" id="refnote"></p>
+
+<div class="card"><h2>Daily PV yield (kWh per kWp)</h2><canvas id="daily" height="110"></canvas></div>
+<div class="card"><h2>Monthly: measured vs PVGIS (kWh/kWp/day)</h2><canvas id="monthly" height="110"></canvas></div>
+<div class="card"><h2>Irradiance – last 3 days (W/m²)</h2><canvas id="irr" height="110"></canvas></div>
+<div class="card"><h2>Solar hot water estimate (kWh per m² collector per day)</h2><canvas id="thermal" height="110"></canvas></div>
+<div class="card"><h2>Battery (daily minimum, V)</h2><canvas id="batt" height="80"></canvas></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const id = {{ device.id | tojson }};
+const css = getComputedStyle(document.documentElement);
+const accent = css.getPropertyValue("--accent").trim(), muted = css.getPropertyValue("--muted").trim();
+Chart.defaults.color = muted;
+Chart.defaults.borderColor = css.getPropertyValue("--line").trim();
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function stat(v, l) {
+  const d = document.createElement("div");
+  d.className = "card stat";
+  d.innerHTML = `<div class="v">${v ?? "–"}</div><div class="l">${l}</div>`;
+  document.getElementById("stats").appendChild(d);
+}
+
+async function getJSON(u) { const r = await fetch(u); if (!r.ok) throw new Error(await r.text()); return r.json(); }
+
+(async () => {
+  const daily = await getJSON(`/api/v1/devices/${id}/daily`);
+  let summary;
+  try { summary = await getJSON(`/api/v1/devices/${id}/summary`); }
+  catch (e) {
+    summary = await getJSON(`/api/v1/devices/${id}/summary?reference=false`);
+    document.getElementById("refnote").textContent = "PVGIS reference unavailable: " + e.message;
+  }
+  stat(summary.days_logged, "days logged");
+  stat(summary.mean_daily_kwh_per_kwp, "mean kWh/kWp per day (full days)");
+  stat(summary.annual_estimate_kwh_per_kwp, "estimated kWh/kWp per year");
+  stat(summary.pvgis_annual_kwh_per_kwp, "PVGIS kWh/kWp per year (unshaded)");
+
+  new Chart(document.getElementById("daily"), {
+    type: "bar",
+    data: { labels: daily.map(d => d.date),
+            datasets: [{ label: "kWh/kWp", data: daily.map(d => d.pv_kwh_per_kwp),
+                         backgroundColor: daily.map(d => d.coverage >= 0.9 ? accent : muted) }] },
+    options: { plugins: { legend: { display: false },
+               tooltip: { callbacks: { afterLabel: c => `coverage ${(daily[c.dataIndex].coverage*100).toFixed(0)} %` } } } }
+  });
+
+  const months = summary.months;
+  new Chart(document.getElementById("monthly"), {
+    type: "bar",
+    data: { labels: months.map(m => MONTHS[m.month - 1]),
+            datasets: [{ label: "measured", data: months.map(m => m.measured_e_d), backgroundColor: accent },
+                       { label: "PVGIS", data: months.map(m => m.pvgis_e_d), backgroundColor: muted }] }
+  });
+
+  new Chart(document.getElementById("thermal"), {
+    type: "line",
+    data: { labels: daily.map(d => d.date),
+            datasets: [{ label: "flat plate", data: daily.map(d => d.thermal_flat_kwh_m2), borderColor: accent, pointRadius: 0 },
+                       { label: "evacuated tube", data: daily.map(d => d.thermal_tube_kwh_m2), borderColor: muted, pointRadius: 0 }] }
+  });
+
+  new Chart(document.getElementById("batt"), {
+    type: "line",
+    data: { labels: daily.map(d => d.date),
+            datasets: [{ label: "V", data: daily.map(d => d.vbat_min), borderColor: accent, pointRadius: 0 }] },
+    options: { plugins: { legend: { display: false } } }
+  });
+
+  const start = Math.floor(Date.now() / 1000) - 3 * 86400;
+  let pts = await getJSON(`/api/v1/devices/${id}/data?start=${start}`);
+  if (!pts.length && daily.length) {  // no recent data (e.g. simulator history): show the last 3 logged days
+    pts = await getJSON(`/api/v1/devices/${id}/data?start=${daily[Math.max(0, daily.length - 3)].date}`);
+  }
+  new Chart(document.getElementById("irr"), {
+    type: "line",
+    data: { labels: pts.map(p => new Date(p.epoch * 1000).toISOString().slice(5, 16).replace("T", " ")),
+            datasets: [{ label: "W/m²", data: pts.map(p => p.irradiance), borderColor: accent, pointRadius: 0, borderWidth: 1 }] },
+    options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { maxTicksLimit: 8 } } } }
+  });
+})();
+</script>
+{% endblock %}

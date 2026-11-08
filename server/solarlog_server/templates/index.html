@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>Solar-Log devices</h1>
+{% if devices %}
+<div class="card scroll">
+<table>
+  <tr><th>Device</th><th>Site</th><th>Tilt / azimuth</th><th>Last seen (UTC)</th><th>Battery</th><th>RSSI</th></tr>
+  {% for d in devices %}
+  <tr>
+    <td><a href="/devices/{{ d.id }}">{{ d.id }}</a></td>
+    <td>{% if d.lat is not none %}{{ "%.3f"|format(d.lat) }}, {{ "%.3f"|format(d.lon) }}{% else %}–{% endif %}</td>
+    <td>{% if d.tilt is not none %}{{ d.tilt }}° / {{ d.azimuth }}°{% else %}–{% endif %}</td>
+    <td>{% if d.last_seen %}{{ d.last_seen | int }}{% else %}–{% endif %}</td>
+    <td>{% if d.last_vbat_mv %}{{ "%.2f"|format(d.last_vbat_mv / 1000) }} V{% else %}–{% endif %}</td>
+    <td>{% if d.last_rssi is not none %}{{ d.last_rssi }} dBm{% else %}–{% endif %}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+<script>
+  // Render epoch seconds as readable UTC time.
+  document.querySelectorAll("td:nth-child(4)").forEach(td => {
+    const n = Number(td.textContent);
+    if (n) td.textContent = new Date(n * 1000).toISOString().replace("T", " ").slice(0, 16);
+  });
+</script>
+{% else %}
+<p class="muted">No devices have uploaded yet. Configure a device token with
+<code>SOLARLOG_DEVICE_TOKENS</code> and press the device's button, or run
+<code>tools/simulate_device.py</code>.</p>
+{% endif %}
+{% endblock %}

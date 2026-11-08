@@ -1,0 +1,21 @@
+ref,qty,part,purpose,approx_gbp_each,notes
+U1,1,ESP32 DevKitC / NodeMCU-32S (ESP32-WROOM-32),MCU + WiFi,0.00,Already owned; requires low-power mod (docs/esp32-devkit-mod.md)
+U2,1,HT7833 LDO 3.3V 500mA (SOT-89),Low-Iq 3V3 supply,0.40,Alternative MCP1700-3302 with >=1000uF bulk cap
+C1,1,470uF 6.3V low-ESR electrolytic,WiFi peak buffer at 3V3,0.20,
+C2-C4,3,100nF ceramic,Decoupling / ADC filter,0.05,
+M1,1,INA219 breakout (0.1 ohm shunt),Isc measurement,2.50,I2C 0x40
+PV1,1,6V 1W mono mini solar panel (~110x60mm),Reference cell + charging,4.00,Prefer PET laminate; Isc ~170-200mA
+M2,1,CN3791 MPPT solar Li-ion charger module - 6V version,Battery charging,3.00,Check MPPT voltage version is 6V
+Q1 Q3,2,AO3400 N-MOSFET (SOT-23),Isc short switch / level shift,0.10,
+Q2 Q4,2,AO3401 P-MOSFET (SOT-23),Charger input switch / sensor rail switch,0.10,
+D1,1,SS14 Schottky diode,Blocks charger side during Isc short,0.10,
+M3,1,DS3231 RTC module (ZS-042) + CR2032,Timekeeping,2.50,Remove charge resistor/diode and LED
+T1 T2,2,DS18B20 waterproof probe 1m,Cell + ambient temperature,1.50,
+BT1,1,18650 3000mAh protected Li-ion cell,Battery,5.00,Reputable brand (Samsung/LG/Panasonic)
+BT1H,1,18650 holder with leads,,1.00,
+R,1,Resistor kit: 2x1M 4x100k 1x10k 1x4.7k,Divider / pull-ups,0.50,
+SW1,1,6mm tactile button (or IP67 push button),Service button,0.30,
+E1,1,IP65 ABS junction box ~100x100x70mm (white),Enclosure,4.00,
+E2,2,M12 cable gland,,0.40,
+E3,1,Breather vent plug M12 + silica gel sachets,Condensation control,1.00,
+MECH,1,Perfboard + wire + aluminium angle + stainless ties,Build and mounting,5.00,
